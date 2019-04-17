@@ -5,6 +5,7 @@ import sys
 from ntu_read_skeleton import read_xyz
 from numpy.lib.format import open_memmap
 import pickle
+from CurveDifferentialInvariant import CurveDifferentialInvariant, CurveDifferential, SimpleFeatures
 
 training_subjects = [
     1, 2, 4, 5, 8, 9, 13, 14, 15, 16, 17, 18, 19, 25, 27, 28, 31, 34, 35, 38
@@ -74,15 +75,18 @@ def gendata(data_path,
             sample_name.append(filename)
             sample_label.append(action_class - 1)
 
+    # sample_name = sample_name[:1000] 
+    # sample_label = sample_label[:1000] 
+
     with open('{}/{}_label.pkl'.format(out_path, part), 'wb') as f:
         pickle.dump((sample_name, list(sample_label)), f)
     # np.save('{}/{}_label.npy'.format(out_path, part), sample_label)
 
     fp = open_memmap(
         '{}/{}_data.npy'.format(out_path, part),
-        dtype='float32',
+        dtype='float16',
         mode='w+',
-        shape=(len(sample_label), 3, max_frame, num_joint, max_body))
+        shape=(len(sample_label), 3+6, max_frame, num_joint, max_body)) 
 
     for i, s in enumerate(sample_name):
         print_toolbar(i * 1.0 / len(sample_label),
@@ -90,7 +94,15 @@ def gendata(data_path,
                           i + 1, len(sample_name), benchmark, part))
         data = read_xyz(
             os.path.join(data_path, s), max_body=max_body, num_joint=num_joint)
-        fp[i, :, 0:data.shape[1], :, :] = data
+        fp[i, :3, 0:data.shape[1], :, :] = data 
+
+        _, N, J, M = data.shape 
+        invariant = np.zeros((6, N, J, M)) 
+        for j in range(J): 
+            for m in range(M): 
+                px, py, pz = data[0, :, j, m], data[1, :, j, m], data[2, :, j, m] 
+                invariant[:, :, j, m] = SimpleFeatures(px, py, pz)  
+        fp[i, 3:, 0:N, :, :] = invariant 
     end_toolbar()
 
 
@@ -102,7 +114,7 @@ if __name__ == '__main__':
     parser.add_argument(
         '--ignored_sample_path',
         default='resource/NTU-RGB-D/samples_with_missing_skeletons.txt')
-    parser.add_argument('--out_folder', default='data/NTU-RGB-D')
+    parser.add_argument('--out_folder', default='data/simplefeatures')
 
     benchmark = ['xsub', 'xview']
     part = ['train', 'val']

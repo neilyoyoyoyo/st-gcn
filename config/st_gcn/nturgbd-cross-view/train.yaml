@@ -8,6 +8,7 @@ train_feeder_args:
 test_feeder_args:
   data_path: ./data/NTU-RGB-D/xview/val_data.npy
   label_path: ./data/NTU-RGB-D/xview/val_label.pkl
+num_worker: 0
 
 # model
 model: st_gcn.net.ST_GCN
@@ -29,8 +30,8 @@ base_lr: 0.1
 step: [10, 50]
 
 # training
-device: [0,1,2,3]
-batch_size: 64 
+device: 0
+batch_size: 16 
 test_batch_size: 64
 num_epoch: 80
 nesterov: True

@@ -105,7 +105,7 @@ class Feeder(torch.utils.data.Dataset):
 
     def __getitem__(self, index):
         # get data
-        data_numpy = np.array(self.data[index])
+        data_numpy = np.array(self.data[index], dtype='float32')
         label = self.label[index]
         
         # normalization
