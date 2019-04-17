@@ -13,7 +13,7 @@ This repository holds the codebase, dataset and models for the paper>
 
 [[Arxiv Preprint]](https://arxiv.org/abs/1801.07455)
 
-* This branch is used to hold the codebase for st-gcn combined with trajectory differential invariants (TDIs) which has different training/testing configs along with TDI implementation in the ```tools/CurveDifferentialInvariant```. The better results are reported. 
+* This branch is used to hold the codebase for st-gcn combined with trajectory differential invariants (TDIs) which has different training/testing configs along with TDI implementation in the ```tools/CurveDifferentialInvariant.py```. The better results are reported. 
 
 ### Visulization of ST-GCN in Action
 
@@ -115,8 +115,8 @@ The expected **Top-1** **accuracy** of provided models are shown here:
 
 | Model| Kinetics-<br>skeleton (%)|NTU RGB+D <br> Cross View (%) |NTU RGB+D <br> Cross Subject (%) |
 | :------| :------: | :------: | :------: |
-|Baseline[1]| 20.3    | 83.1     |  74.3    |
-|**ST-GCN** | **30.6**| **88.9** | **80.7** | 
+|Baseline[1]| 20.3          | 83.1     |  74.3    |
+|ST-GCN     | 30.6          | 88.9     |  80.7    | 
 |**ST-GCN+TDI(Ours)** | --- | **89.8** | **83.4** | 
 
 [1] Kim, T. S., and Reiter, A. 2017. Interpretable 3d human action analysis with temporal convolutional networks. In BNMW CVPRW. 
