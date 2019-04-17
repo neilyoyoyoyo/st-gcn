@@ -1,16 +1,19 @@
-# Spatial Temporal Graph Convolutional Networks (ST-GCN)
-A graph convolutional network for skeleton based action recognition.
+# Spatial Temporal Graph Convolutional Networks (ST-GCN) combined with trajectory differential invariants (TDI)
 
+A graph convolutional network for skeleton based action recognition.
 <div align="center">
     <img src="resource/info/pipeline.png">
 </div>
 
 ## Introduction
+ 
 This repository holds the codebase, dataset and models for the paper>
 
 **Spatial Temporal Graph Convolutional Networks for Skeleton-Based Action Recognition** Sijie Yan, Yuanjun Xiong and Dahua Lin, AAAI 2018.
 
 [[Arxiv Preprint]](https://arxiv.org/abs/1801.07455)
+
+* This branch is used to hold the codebase for st-gcn combined with trajectory differential invariants (TDIs) which has different training/testing configs along with TDI implementation in the ```tools/CurveDifferentialInvariant```. The better results are reported. 
 
 ### Visulization of ST-GCN in Action
 
@@ -113,7 +116,8 @@ The expected **Top-1** **accuracy** of provided models are shown here:
 | Model| Kinetics-<br>skeleton (%)|NTU RGB+D <br> Cross View (%) |NTU RGB+D <br> Cross Subject (%) |
 | :------| :------: | :------: | :------: |
 |Baseline[1]| 20.3    | 83.1     |  74.3    |
-|**ST-GCN** (Ours)| **30.6**| **88.9** | **80.7** | 
+|**ST-GCN** | **30.6**| **88.9** | **80.7** | 
+|**ST-GCN+TDI(Ours)** | --- | **89.8** | **83.4** | 
 
 [1] Kim, T. S., and Reiter, A. 2017. Interpretable 3d human action analysis with temporal convolutional networks. In BNMW CVPRW. 
 
